@@ -1,0 +1,104 @@
+﻿<Window x:Class="Overlay.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Overlay"
+        xmlns:userControls="clr-namespace:Overlay.UserControls"
+        mc:Ignorable="d"
+        Title="DyslexiaOverlay"
+        Width="1920"
+        Height="1080"
+        KeyDown="Window_KeyDown"
+        Loaded="Window_Loaded"
+        ShowInTaskbar="False"
+        WindowStyle="None"
+        AllowsTransparency="true"
+        Topmost="True">
+    
+    <Window.Background>
+        <SolidColorBrush Color="#FFFFFF" Opacity="0"/>
+    </Window.Background>
+
+    <Grid x:Name="MainGrid">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+        </Grid>
+
+        <Grid x:Name="PreviewGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1.4*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="20*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Background="#282a36" Grid.Row="1" Grid.Column="0" CornerRadius="0,25,25,0">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="2" Opacity="0.5"/>
+                </Border.Effect>
+            </Border>
+
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"  Margin="10">
+                <Viewbox>
+                    <Button Width="100" Height="100" Margin="20" Command="{Binding ChangeColour1}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <userControls:FavouritedColour_UserControl DataContext="{Binding FavouriteColour1}"/>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Viewbox>
+                
+                <Viewbox>
+                    <Button Width="100" Height="100" Margin="20" Command="{Binding ChangeColour2}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <userControls:FavouritedColour_UserControl DataContext="{Binding FavouriteColour2}"/>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Viewbox>
+                
+                <Viewbox>
+                    <Button Width="100" Height="100" Margin="20" Command="{Binding ChangeColour3}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <userControls:FavouritedColour_UserControl DataContext="{Binding FavouriteColour3}"/>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Viewbox>
+
+                <Viewbox Visibility="Hidden">
+                    <Grid>
+                        <Border BorderBrush="{Binding MiscColourSelected}" BorderThickness="5" CornerRadius="25"/>
+                        <Image x:Name="ColourWheelImage"    Source="{Binding ColourWheel}"  Width="100" Height="100" Margin="20"/>
+                    </Grid>
+                </Viewbox>
+                
+                <Viewbox Visibility="Hidden">
+                    <Rectangle x:Name="Gap2" Width="50" Height="50" Margin="20"/>
+                </Viewbox>
+                
+                <Viewbox>
+                    <Button Width="100" Height="100" Margin="20" Command="{Binding Exit}" >
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Image x:Name="Exit"  Source="{Binding ExitIcon}"/>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Viewbox>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

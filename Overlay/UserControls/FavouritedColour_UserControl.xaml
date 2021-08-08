@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="Overlay.UserControls.FavouritedColour_UserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Overlay.UserControls"
+             mc:Ignorable="d">
+    
+    <Grid Width="100" Height="100">
+        <Border  Background="{Binding ColourBrush}" Opacity="{Binding Opacity}" CornerRadius="25"/>
+        <Border  BorderBrush="{Binding BorderColour}" CornerRadius="25" BorderThickness="5" Margin="-5"/>
+    </Grid>
+</UserControl>
