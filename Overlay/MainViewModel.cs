@@ -1,6 +1,8 @@
-﻿using Overlay.UserControls;
+﻿using Overlay.OverlayBackground;
+using Overlay.UserControls;
 using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -17,7 +19,7 @@ namespace Overlay
         private const int START_INDEX = 2; // Green
         private int SelectedIndex;
 
-        public Background_ViewModel BackgroundViewModel { get; set; }
+        public Overlay_ViewModel BackgroundViewModel { get; set; }
 
         public ObservableCollection<CustomColour> FavouriteColours { get; set; }
         public CustomColour FavouriteColour0_Placeholder { get; private set; }
@@ -29,29 +31,11 @@ namespace Overlay
         public RelayCommand ChangeColour1 { get; set; }
         public RelayCommand ChangeColour2 { get; set; }
         public RelayCommand ChangeColour3 { get; set; }
+        public RelayCommand CollapseSideBar { get; set; }
 
-
-        private ImageSource _colourWheel;
-        public ImageSource ColourWheel
-        {
-            get { return _colourWheel; }
-            set
-            {
-                _colourWheel = value;
-                NotifyPropertyChanged();
-            }
-        }
-
-        private ImageSource _exit;
-        public ImageSource ExitIcon
-        {
-            get { return _exit; }
-            set
-            {
-                _exit = value;
-                NotifyPropertyChanged();
-            }
-        }
+        public ImageSource Arrow { get; set; }
+        public ImageSource ExitIcon { get; set; }
+        public ImageSource ColourWheel { get; set; }
 
         private SolidColorBrush _miscColourSelected;
         public SolidColorBrush MiscColourSelected
@@ -64,9 +48,22 @@ namespace Overlay
             }
         }
 
-        public MainViewModel(Background background)
+
+        private Visibility _sideBarVisibility;
+        public Visibility SideBarVisibility
         {
-            BackgroundViewModel = new Background_ViewModel();
+            get { return _sideBarVisibility; }
+            set
+            {
+                _sideBarVisibility = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+
+        public MainViewModel(Overlay_UserControl background)
+        {
+            BackgroundViewModel = new Overlay_ViewModel();
             background.DataContext = BackgroundViewModel;
             GenerateStartFavouriteColour();
             InitIcons();
@@ -76,9 +73,9 @@ namespace Overlay
         private void GenerateStartFavouriteColour()
         {
             FavouriteColour0_Placeholder = new CustomColour(WHITE, START_OPACITY);
-            FavouriteColour1 = new CustomColour(RED, START_OPACITY);
-            FavouriteColour2 = new CustomColour(GREEN, START_OPACITY);
-            FavouriteColour3 = new CustomColour(BLUE, START_OPACITY);
+            FavouriteColour1 = new CustomColour(RED, 0.05);
+            FavouriteColour2 = new CustomColour(GREEN, 0.05);
+            FavouriteColour3 = new CustomColour(BLUE, 0.05);
 
             FavouriteColours = new ObservableCollection<CustomColour>();
 
@@ -91,39 +88,19 @@ namespace Overlay
 
         private void InitIcons()
         {
-            ColourWheel = new BitmapImage(new Uri("/Overlay;component/ColourWheel.png", UriKind.Relative));
-            ExitIcon = new BitmapImage(new Uri("/Overlay;component/Exit.png", UriKind.Relative));
+            ColourWheel = new BitmapImage(new Uri("/Overlay;component/AppResources/GUI/ColourWheel.png", UriKind.Relative));
+            Arrow = new BitmapImage(new Uri("/Overlay;component/AppResources/GUI/Arrow.png", UriKind.Relative));
+            ExitIcon = new BitmapImage(new Uri("/Overlay;component/AppResources/GUI/Exit.png", UriKind.Relative));
         }
 
         private void InitCommands()
         {
             Exit = new RelayCommand(Execute_ExitCommand, CanExecute_Commands);
+            CollapseSideBar = new RelayCommand(Execute_OpenCloseSideBarCommand, CanExecute_Commands);
             ChangeColour1 = new RelayCommand(Execute_ChangeToFavourite1Command, CanExecute_Commands);
             ChangeColour2 = new RelayCommand(Execute_ChangeToFavourite2Command, CanExecute_Commands);
             ChangeColour3 = new RelayCommand(Execute_ChangeToFavourite3Command, CanExecute_Commands);
         }
-
-        //private void SetSelectedIndex(int index)
-        //{
-        //    SelectedIndex = index;
-
-        //    if (index != 0)
-        //    {
-        //        MiscColourSelected = (SolidColorBrush)new BrushConverter().ConvertFrom(TRANSPARENT);
-        //        SelectedColour = FavouriteColours[index];
-
-        //        foreach (CustomColour colours in FavouriteColours)
-        //        {
-        //            FavouriteColours[index].IsSelected = false;
-        //        }
-
-        //        FavouriteColours[index].IsSelected = true;
-        //    }
-        //    else
-        //    {
-        //        MiscColourSelected = (SolidColorBrush)new BrushConverter().ConvertFrom(WHITE);
-        //    }
-        //}
 
         private void SetSelectedIndex(int index)
         {
@@ -160,6 +137,18 @@ namespace Overlay
         public void Execute_ExitCommand(object param)
         {
             Environment.Exit(0);
+        }
+
+        public void Execute_OpenCloseSideBarCommand(object param)
+        {
+            if (SideBarVisibility == Visibility.Visible)
+            {
+                SideBarVisibility = Visibility.Collapsed;
+            }
+            else
+            {
+                SideBarVisibility = Visibility.Visible;
+            }
         }
 
         public void Execute_ChangeToFavourite1Command(object param)

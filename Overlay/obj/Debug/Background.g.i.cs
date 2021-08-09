@@ -38,7 +38,7 @@ namespace Overlay {
     /// <summary>
     /// Background
     /// </summary>
-    public partial class Background : System.Windows.Window, System.Windows.Markup.IComponentConnector {
+    public partial class Overlay_UserControl : System.Windows.Window, System.Windows.Markup.IComponentConnector {
         
         private bool _contentLoaded;
         
@@ -73,7 +73,7 @@ namespace Overlay {
             case 1:
             
             #line 10 "..\..\Background.xaml"
-            ((Overlay.Background)(target)).Loaded += new System.Windows.RoutedEventHandler(this.Window_Loaded);
+            ((Overlay.Overlay_UserControl)(target)).Loaded += new System.Windows.RoutedEventHandler(this.Window_Loaded);
             
             #line default
             #line hidden

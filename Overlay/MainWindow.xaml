@@ -29,10 +29,10 @@
             </Grid.RowDefinitions>
         </Grid>
 
-        <Grid x:Name="PreviewGrid">
+        <Grid Panel.ZIndex="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="1.4*"/>
+                <RowDefinition Height="0.15*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
@@ -47,7 +47,37 @@
                 </Border.Effect>
             </Border>
 
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"  Margin="10">
+            <Viewbox Grid.Row="1" Grid.Column="0">
+                <Button Width="200" Height="200" Command="{Binding CollapseSideBar}" >
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image x:Name="Collapse"  Source="{Binding Arrow}"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Viewbox>
+
+        </Grid>
+
+        <Grid x:Name="PreviewGrid" Visibility="{Binding SideBarVisibility}" Panel.ZIndex="100">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1.4*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="20*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Border Background="#282a36" Grid.Row="1" Grid.Column="0" CornerRadius="0,25,25,0">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="2" Opacity="0.5"/>
+                </Border.Effect>
+            </Border>
+
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"  Margin="10">                
                 <Viewbox>
                     <Button Width="100" Height="100" Margin="20" Command="{Binding ChangeColour1}">
                         <Button.Template>
@@ -84,11 +114,21 @@
                         <Image x:Name="ColourWheelImage"    Source="{Binding ColourWheel}"  Width="100" Height="100" Margin="20"/>
                     </Grid>
                 </Viewbox>
-                
-                <Viewbox Visibility="Hidden">
-                    <Rectangle x:Name="Gap2" Width="50" Height="50" Margin="20"/>
+
+                <Viewbox>
+                    <Button Width="200" Height="200" Command="{Binding CollapseSideBar}" >
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Image x:Name="Collapse"  Source="{Binding Arrow}">
+                                    <Image.RenderTransform>
+                                        <RotateTransform Angle="180" CenterX="100" CenterY="100"/>
+                                    </Image.RenderTransform>
+                                </Image>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                 </Viewbox>
-                
+
                 <Viewbox>
                     <Button Width="100" Height="100" Margin="20" Command="{Binding Exit}" >
                         <Button.Template>

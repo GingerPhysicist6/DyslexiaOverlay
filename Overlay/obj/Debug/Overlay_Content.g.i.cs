@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("exit.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("appresources/gui/arrow.svg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("appresources/gui/exit.svg")]
 
 
